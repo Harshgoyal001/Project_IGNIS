@@ -1,3 +1,4 @@
+import React from "react";
 import {
   PieChart,
   Pie,
@@ -12,7 +13,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
-import { Flame, ShieldCheck, Radar } from "lucide-react";
+import { Flame, Gauge as GaugeIcon, ShieldCheck, Radar } from "lucide-react";
 import { HOTSPOTS, persistenceStrip } from "../data/hotspots";
 import { CLASS_CONFIG, C, FONT_MONO } from "../theme";
 
@@ -123,9 +124,10 @@ export default function StatisticsView() {
   }, {});
   const landCoverData = Object.entries(landCoverCounts).map(([name, count]) => ({ name, count }));
 
-  // Real 30-day time series: reuse each hotspot's deterministic persistence strip
+  // Real 5-day time series: reuse each hotspot's deterministic persistence strip
   // and sum how many hotspots were actively detected on each day of the window.
-  const dailyTrend = Array.from({ length: 30 }, (_, dayIndex) => {
+  const WINDOW_DAYS = 5;
+  const dailyTrend = Array.from({ length: WINDOW_DAYS }, (_, dayIndex) => {
     const count = HOTSPOTS.reduce((sum, h) => {
       const strip = persistenceStrip(h.persistenceDays, h.windowDays);
       return sum + (strip[dayIndex] ? 1 : 0);
@@ -138,7 +140,7 @@ export default function StatisticsView() {
       <div className="mb-4">
         <div style={{ fontWeight: 600, fontSize: "16px" }}>Statistics</div>
         <div style={{ color: C.textFaint, fontSize: "12px" }}>
-          Aggregated across all active hotspots in the current 30-day window
+          Aggregated across all active hotspots in the current 5-day window
         </div>
       </div>
 
@@ -153,7 +155,7 @@ export default function StatisticsView() {
           sub="score \u2265 70, needs review"
           color={C.wildfire}
         />
-        <StatCard Icon={Radar} label="Avg Persistence" value={`${avgPersistence}%`} sub="of the 30-day window" color={C.teal} />
+        <StatCard Icon={Radar} label="Avg Persistence" value={`${avgPersistence}%`} sub="of the 5-day window" color={C.teal} />
       </div>
 
       <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
@@ -261,7 +263,7 @@ export default function StatisticsView() {
           className="rounded-lg p-4"
         >
           <div style={{ fontWeight: 600, fontSize: "13px" }} className="mb-3">
-            30-Day Detection Trend
+            5-Day Detection Trend
           </div>
           <div style={{ height: 160 }}>
             <ResponsiveContainer width="100%" height="100%">
@@ -278,7 +280,6 @@ export default function StatisticsView() {
                   tick={{ fill: C.textFaint, fontSize: 10 }}
                   axisLine={{ stroke: C.border }}
                   tickLine={false}
-                  interval={4}
                 />
                 <YAxis tick={{ fill: C.textDim, fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip

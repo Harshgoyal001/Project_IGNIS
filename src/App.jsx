@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Map as MapIcon, BarChart3, Layers, Search, Info, Flame, MapPin, Satellite } from "lucide-react";
 import ThermalMap from "./components/ThermalMap";
 import LayersPanel from "./components/LayersPanel";
@@ -55,7 +55,7 @@ export default function App() {
           >
             <MapPin size={13} color={C.textDim} />
             <span style={{ color: C.textDim }}>Region:</span>
-            <span>Odisha Industrial Belt</span>
+            <span>Pan-India · 5-day proof run</span>
           </div>
           <div
             style={{ background: C.industrial, color: "#1A1206" }}
