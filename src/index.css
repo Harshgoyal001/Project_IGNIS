@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Darken the satellite imagery so it blends with the dashboard's dark theme */
+.leaflet-tile-pane {
+  filter: brightness(0.55) saturate(1.15) contrast(1.05);
+}
+
+/* Keep Leaflet's default zoom control readable on the dark theme */
+.leaflet-control-zoom a {
+  background-color: #16223A !important;
+  color: #EDF1F8 !important;
+  border-color: #22304A !important;
+}
+.leaflet-control-attribution {
+  background: rgba(17, 26, 43, 0.75) !important;
+  color: #93A2BE !important;
+}
+.leaflet-control-attribution a {
+  color: #5B8DEF !important;
+}
+
+/* Custom dark styling for Leaflet Popups */
+.leaflet-popup-content-wrapper {
+  background: #111A2B !important;
+  color: #EDF1F8 !important;
+  border: 1px solid #22304A !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+  padding: 0 !important;
+}
+.leaflet-popup-tip {
+  background: #111A2B !important;
+  border: 1px solid #22304A !important;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: #93A2BE !important;
+  padding: 6px 8px !important;
+}
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #EDF1F8 !important;
+}
